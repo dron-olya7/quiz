@@ -10,9 +10,9 @@ const quizData = {
 function showError(elementId) {
   const errorElement = document.getElementById(elementId);
   if (errorElement) {
-    errorElement.style.display = 'flex';
-    if (elementId === 'checkboxError') {
-      errorElement.style.display = 'block';
+    errorElement.style.display = "flex";
+    if (elementId === "checkboxError") {
+      errorElement.style.display = "block";
     }
   }
 }
@@ -20,14 +20,14 @@ function showError(elementId) {
 function hideError(elementId) {
   const errorElement = document.getElementById(elementId);
   if (errorElement) {
-    errorElement.style.display = 'none';
+    errorElement.style.display = "none";
   }
 }
 
 function hideAllErrors() {
-  const errorMessages = document.querySelectorAll('.error-message');
-  errorMessages.forEach(error => {
-    error.style.display = 'none';
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach((error) => {
+    error.style.display = "none";
   });
 }
 
@@ -37,7 +37,7 @@ function logQuizData() {
     employmentType: quizData.employmentType,
     specialties: quizData.specialties,
     employeeCount: quizData.employeeCount,
-    duration: quizData.duration
+    duration: quizData.duration,
   });
 }
 
@@ -62,8 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // Функция для инициализации кнопок навигации
 function initNavigationButtons() {
   // Кнопки "Далее" (кроме последней)
-  document.querySelectorAll('.btn-next:not(.btn-submit)').forEach(button => {
-    button.addEventListener('click', function() {
+  document.querySelectorAll(".btn-next:not(.btn-submit)").forEach((button) => {
+    button.addEventListener("click", function () {
       const currentQuestion = getCurrentQuestionNumber();
       if (currentQuestion) {
         nextQuestion(currentQuestion);
@@ -72,8 +72,8 @@ function initNavigationButtons() {
   });
 
   // Кнопки "Назад"
-  document.querySelectorAll('.btn-prev').forEach(button => {
-    button.addEventListener('click', function() {
+  document.querySelectorAll(".btn-prev").forEach((button) => {
+    button.addEventListener("click", function () {
       const currentQuestion = getCurrentQuestionNumber();
       if (currentQuestion) {
         prevQuestion(currentQuestion);
@@ -82,9 +82,9 @@ function initNavigationButtons() {
   });
 
   // Кнопка "Получить предложение" в 4-м вопросе
-  const submitButton = document.querySelector('#question4 .btn-next');
+  const submitButton = document.querySelector("#question4 .btn-next");
   if (submitButton) {
-    submitButton.addEventListener('click', function() {
+    submitButton.addEventListener("click", function () {
       nextQuestion(4);
     });
   }
@@ -92,22 +92,26 @@ function initNavigationButtons() {
 
 // Функция для получения номера текущего вопроса
 function getCurrentQuestionNumber() {
-  const activeQuestion = document.querySelector('.question.active');
+  const activeQuestion = document.querySelector(".question.active");
   if (activeQuestion) {
     const id = activeQuestion.id;
-    return parseInt(id.replace('question', ''));
+    return parseInt(id.replace("question", ""));
   }
   return null;
 }
 
 // Функция для проверки состояния кнопок "Далее"
 function updateNextButtonState(questionNumber) {
-  const nextButton = document.querySelector(`#question${questionNumber} .btn-next`);
+  const nextButton = document.querySelector(
+    `#question${questionNumber} .btn-next`
+  );
   let isEnabled = true;
 
   switch (questionNumber) {
     case 1:
-      const employmentTypeSelected = document.querySelector('input[name="employment_type"]:checked');
+      const employmentTypeSelected = document.querySelector(
+        'input[name="employment_type"]:checked'
+      );
       isEnabled = !!employmentTypeSelected;
       break;
     case 2:
@@ -121,7 +125,9 @@ function updateNextButtonState(questionNumber) {
       isEnabled = totalCount > 0;
       break;
     case 4:
-      const durationSelected = document.querySelector('input[name="duration"]:checked');
+      const durationSelected = document.querySelector(
+        'input[name="duration"]:checked'
+      );
       isEnabled = !!durationSelected;
       break;
   }
@@ -430,7 +436,9 @@ function nextQuestion(currentQuestion) {
   }
 
   // Скрытие текущего вопроса
-  const currentQuestionElement = document.getElementById(`question${currentQuestion}`);
+  const currentQuestionElement = document.getElementById(
+    `question${currentQuestion}`
+  );
   if (currentQuestionElement) {
     currentQuestionElement.classList.remove("active");
   }
@@ -438,15 +446,19 @@ function nextQuestion(currentQuestion) {
   // Если это последний вопрос (4), показываем результат
   if (currentQuestion === 4) {
     // ВЫЗОВ showResult ТОЛЬКО ОДИН РАЗ
-    if (!document.getElementById("result").style.display || 
-        document.getElementById("result").style.display === "none") {
+    if (
+      !document.getElementById("result").style.display ||
+      document.getElementById("result").style.display === "none"
+    ) {
       showResult();
     }
     return;
   }
 
   // Показ следующего вопроса
-  const nextQuestionElement = document.getElementById(`question${currentQuestion + 1}`);
+  const nextQuestionElement = document.getElementById(
+    `question${currentQuestion + 1}`
+  );
   if (nextQuestionElement) {
     nextQuestionElement.classList.add("active");
   }
@@ -461,13 +473,17 @@ function nextQuestion(currentQuestion) {
 // Функция для возврата к предыдущему вопросу
 function prevQuestion(currentQuestion) {
   // Скрытие текущего вопроса
-  const currentQuestionElement = document.getElementById(`question${currentQuestion}`);
+  const currentQuestionElement = document.getElementById(
+    `question${currentQuestion}`
+  );
   if (currentQuestionElement) {
     currentQuestionElement.classList.remove("active");
   }
 
   // Показ предыдущего вопроса
-  const prevQuestionElement = document.getElementById(`question${currentQuestion - 1}`);
+  const prevQuestionElement = document.getElementById(
+    `question${currentQuestion - 1}`
+  );
   if (prevQuestionElement) {
     prevQuestionElement.classList.add("active");
   }
@@ -547,16 +563,26 @@ function updateProgressBar(currentQuestion) {
 
 // Функция для применения маски к телефону
 function applyPhoneMask(input) {
-  input.addEventListener('input', function(e) {
-    let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-    
-    if (x[1] === '8' || x[1] === '7') {
-      x[1] = '+7';
-    } else if (x[1] === '') {
-      x[1] = '+7';
+  input.addEventListener("input", function (e) {
+    let x = e.target.value
+      .replace(/\D/g, "")
+      .match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+
+    if (x[1] === "8" || x[1] === "7") {
+      x[1] = "+7";
+    } else if (x[1] === "") {
+      x[1] = "+7";
     }
-    
-    e.target.value = !x[3] ? x[1] + x[2] : x[1] + ' (' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+
+    e.target.value = !x[3]
+      ? x[1] + x[2]
+      : x[1] +
+        " (" +
+        x[2] +
+        ") " +
+        x[3] +
+        (x[4] ? "-" + x[4] : "") +
+        (x[5] ? "-" + x[5] : "");
   });
 }
 
@@ -570,20 +596,20 @@ function showResult() {
   }
 
   // Скрытие заголовка квиза
-  const quizTitle = document.querySelector('.quiz-title');
+  const quizTitle = document.querySelector(".quiz-title");
   if (quizTitle) {
-    quizTitle.style.display = 'none';
+    quizTitle.style.display = "none";
   }
 
   // Скрытие прогресс-бара
-  const progressContainer = document.querySelector('.progress-container');
+  const progressContainer = document.querySelector(".progress-container");
   if (progressContainer) {
-    progressContainer.style.display = 'none';
+    progressContainer.style.display = "none";
   }
 
-  const imgRight = document.querySelector('.img-right');
+  const imgRight = document.querySelector(".img-right");
   if (imgRight) {
-    imgRight.style.display = 'none';
+    imgRight.style.display = "none";
   }
 
   // Скрытие последнего вопроса
@@ -601,79 +627,83 @@ function showResult() {
   renderEmployeesSummary();
 
   // ВЫВОД ДАННЫХ ТОЛЬКО ЗДЕСЬ - ОДИН РАЗ В КОНЦЕ
-//   console.log("🎉 ФИНАЛЬНЫЕ ДАННЫЯ КВИЗА:");
+  //   console.log("🎉 ФИНАЛЬНЫЕ ДАННЫЯ КВИЗА:");
   logQuizData();
 
   // Убираем required атрибуты чтобы избежать браузерной валидации
-  const requiredInputs = document.querySelectorAll('#contactForm input[required]');
-  requiredInputs.forEach(input => {
-    input.removeAttribute('required');
+  const requiredInputs = document.querySelectorAll(
+    "#contactForm input[required]"
+  );
+  requiredInputs.forEach((input) => {
+    input.removeAttribute("required");
   });
 
   // Запрет букв в телефоне и скрытие ошибки при вводе
   const phoneInput = document.querySelector('input[type="tel"]');
-  phoneInput.addEventListener('input', function() {
-    this.value = this.value.replace(/[^\d+()-]/g, '');
-    document.getElementById('phoneError').style.display = 'none';
+  phoneInput.addEventListener("input", function () {
+    this.value = this.value.replace(/[^\d+()-]/g, "");
+    document.getElementById("phoneError").style.display = "none";
   });
 
   // Скрываем ошибку email при вводе
   const emailInput = document.querySelector('input[type="email"]');
-  emailInput.addEventListener('input', function() {
-    document.getElementById('emailError').style.display = 'none';
+  emailInput.addEventListener("input", function () {
+    document.getElementById("emailError").style.display = "none";
   });
 
   // Скрываем ошибку чекбокса при изменении
   const checkbox = document.querySelector('input[type="checkbox"]');
-  checkbox.addEventListener('change', function() {
-    document.getElementById('checkboxError').style.display = 'none';
+  checkbox.addEventListener("change", function () {
+    document.getElementById("checkboxError").style.display = "none";
   });
 
   // Обработка отправки формы
-  document.getElementById("contactForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    
-    const errorMessages = document.querySelectorAll('.error-message');
-    errorMessages.forEach(error => {
-      error.style.display = 'none';
-    });
-    
-    let isValid = true;
+  document
+    .getElementById("contactForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    // Проверка email
-    const emailInput = document.querySelector('input[type="email"]');
-    const emailError = document.getElementById('emailError');
-    if (!emailInput.value.trim()) {
-      emailError.style.display = 'flex';
-      isValid = false;
-    }
+      const errorMessages = document.querySelectorAll(".error-message");
+      errorMessages.forEach((error) => {
+        error.style.display = "none";
+      });
 
-    // Проверка телефона
-    const phoneInput = document.querySelector('input[type="tel"]');
-    const phoneError = document.getElementById('phoneError');
-    if (!phoneInput.value.trim()) {
-      phoneError.style.display = 'flex';
-      isValid = false;
-    }
+      let isValid = true;
 
-    // Проверка чекбокса
-    const checkbox = document.querySelector('input[type="checkbox"]');
-    const checkboxError = document.getElementById('checkboxError');
-    if (!checkbox.checked) {
-      checkboxError.style.display = 'block';
-      isValid = false;
-    }
+      // Проверка email
+      const emailInput = document.querySelector('input[type="email"]');
+      const emailError = document.getElementById("emailError");
+      if (!emailInput.value.trim()) {
+        emailError.style.display = "flex";
+        isValid = false;
+      }
 
-    if (isValid) {
-      const resultForm = document.querySelector('.result-form');
-      resultForm.innerHTML = `
+      // Проверка телефона
+      const phoneInput = document.querySelector('input[type="tel"]');
+      const phoneError = document.getElementById("phoneError");
+      if (!phoneInput.value.trim()) {
+        phoneError.style.display = "flex";
+        isValid = false;
+      }
+
+      // Проверка чекбокса
+      const checkbox = document.querySelector('input[type="checkbox"]');
+      const checkboxError = document.getElementById("checkboxError");
+      if (!checkbox.checked) {
+        checkboxError.style.display = "block";
+        isValid = false;
+      }
+
+      if (isValid) {
+        const resultForm = document.querySelector(".result-form");
+        resultForm.innerHTML = `
         <div class="thank-you-message">
           <h3>Спасибо за вашу заявку!</h3>
           <p>Мы свяжемся с вами в ближайшее время для уточнения деталей.</p>
         </div>
       `;
-    }
-  });
+      }
+    });
 }
 
 // Функция для отображения сотрудников со счетчиками в результатах

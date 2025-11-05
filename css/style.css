@@ -120,7 +120,8 @@
   border-radius: 6px;
 }
 
-.question-content h2, .question-content h3 {
+.question-content h2,
+.question-content h3 {
   font-family: "Raleway-Bold";
   font-style: normal;
   font-weight: 700;
@@ -828,7 +829,7 @@
 
 .result-summary {
   width: 100%;
-      height: 464px;
+  height: 464px;
   background-color: #fff;
   padding: 24px 49px 24px 44px;
   margin-bottom: 0;
@@ -915,7 +916,7 @@
   flex-direction: column;
   padding: 24px 49px;
   width: 99%;
-      height: 464px;
+  height: 464px;
   background: #ffffff;
 }
 
@@ -1122,20 +1123,19 @@
   display: block;
 }
 
-
- .thank-you-message {
-          text-align: center;
-          padding: 40px 20px;
-        }
-        .thank-you-message h3 {
-          font-family: "Raleway-Bold";
-          font-size: 28px;
-          color: #433030;
-          margin-bottom: 20px;
-        }
-        .thank-you-message p {
-          font-family: "Raleway-Regular";
-          font-size: 18px;
-          color: #433030;
-          margin-bottom: 30px;
-        }
+.thank-you-message {
+  text-align: center;
+  padding: 40px 20px;
+}
+.thank-you-message h3 {
+  font-family: "Raleway-Bold";
+  font-size: 28px;
+  color: #433030;
+  margin-bottom: 20px;
+}
+.thank-you-message p {
+  font-family: "Raleway-Regular";
+  font-size: 18px;
+  color: #433030;
+  margin-bottom: 30px;
+}
