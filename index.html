@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- OpenGraph разметка -->
+    <meta property="og:title" content="Квиз по аутсорсингу персонала"/>
+    <meta property="og:description" content="Рассчитаем стоимость аутсорсинга персонала и составим коммерческое предложение"/>
+    <meta property="og:image" content="/img/og-image.jpg">
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content= "https://example.com/quiz" />
+    
+    <!-- Фавиконы -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Подключение стилей -->
+     <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/critical.css">
+    <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+
+    <link rel="stylesheet" href="css/media.css">
+    
+    <title>Квиз по аутсорсингу персонала</title>
+  
+  </head>
+  <body>
+    <section class="block_quiz">
+      <div class="container-quiz">
+        <div class="block_quiz_desc">
+          <h1 class="quiz-title">
+            Рассчитаем стоимость аутсорсинга персонала и составим коммерческое
+            предложение
+          </h1>
+
+          <!-- Прогресс бар -->
+          <div class="progress-container">
+            <span class="progress-text" id="progressText">Вопрос 1 из 4-х</span>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="img-right">
+            <img src="/img/blocknot.png" alt="Блокнот для заметок" loading="lazy"/>
+          </div>
+
+          <!-- Вопрос 1 -->
+          <div class="question question1 active" id="question1">
+            <div class="question-content">
+              <h2>
+                Рассматриваете аренду персонала или&nbsp;с&nbsp;возможностью
+                перевода в штат?
+              </h2>
+              <div class="options-container">
+                <label class="option">
+                  <input type="radio" name="employment_type" value="Аренда" />
+                  <span class="custom-radio"></span>
+                  Аренда
+                </label>
+                <label class="option">
+                  <input
+                    type="radio"
+                    name="employment_type"
+                    value="С возможностью в штат"
+                  />
+                  <span class="custom-radio"></span>
+                  С возможностью в штат
+                </label>
+              </div>
+            </div>
+            <div class="navigation">
+              <button class="btn-next">Далее</button>
+            </div>
+          </div>
+
+          <!-- Вопрос 2 -->
+          <div class="question question2" id="question2">
+            <div class="question-content">
+              <h2>Выберите сотрудников</h2>
+              <div class="select-container">
+                <div class="multiselect-dropdown" id="multiselectDropdown">
+                  Выберите специальности
+                </div>
+                <div class="dropdown-options" id="dropdownOptions">
+                  <div class="dropdown-option" data-value="Грузчик">
+                    Грузчик
+                    <span class="dropdown-checkbox"></span>
+                  </div>
+                  <div class="dropdown-option" data-value="Кладовщик">
+                    Кладовщик
+                    <span class="dropdown-checkbox"></span>
+                  </div>
+                  <div class="dropdown-option" data-value="Водитель">
+                    Водитель
+                    <span class="dropdown-checkbox"></span>
+                  </div>
+                  <div class="dropdown-option" data-value="Упаковщик">
+                    Упаковщик
+                    <span class="dropdown-checkbox"></span>
+                  </div>
+                  <div class="dropdown-option" data-value="Комплектовщик">
+                    Комплектовщик
+                    <span class="dropdown-checkbox"></span>
+                  </div>
+                  <div class="dropdown-option" data-value="Разнорабочий">
+                    Разнорабочий
+                    <span class="dropdown-checkbox"></span>
+                  </div>
+                </div>
+                <div class="selected-count" id="selectedCount">
+                  Выбрано: 0 сотрудников
+                </div>
+                <div class="selected-items" id="selectedItems"></div>
+              </div>
+            </div>
+            <div class="navigation">
+              <button class="btn-prev">Назад</button>
+              <button class="btn-next">Далее</button>
+            </div>
+          </div>
+
+          <!-- Вопрос 3 -->
+          <div class="question question3" id="question3">
+            <div class="question-content">
+              <h2>Сколько сотрудников Вам нужно?</h2>
+              <div class="specialties-container" id="specialtiesContainer">
+                <!-- Здесь будут отображаться выбранные специальности со счетчиками -->
+              </div>
+            </div>
+            <div class="navigation">
+              <button class="btn-prev">Назад</button>
+              <button class="btn-next">Далее</button>
+            </div>
+          </div>
+
+          <!-- Вопрос 4 -->
+          <div class="question question4" id="question4">
+            <div class="question-content">
+              <h2>На какое время требуется персонал?</h2>
+              <div class="options-container">
+                <label class="option">
+                  <input
+                    type="radio"
+                    name="duration"
+                    value="Постоянно за штатом"
+                  />
+                  <span class="custom-radio"></span>
+                  Постоянно за штатом
+                </label>
+                <label class="option">
+                  <input type="radio" name="duration" value="Менее 1 месяца" />
+                  <span class="custom-radio"></span>
+                  Менее 1 месяца
+                </label>
+                <label class="option">
+                  <input type="radio" name="duration" value="Более 6 месяцев" />
+                  <span class="custom-radio"></span>
+                  Более 6 месяцев
+                </label>
+                <label class="option">
+                  <input type="radio" name="duration" value="Другое" />
+                  <span class="custom-radio"></span>
+                  Другое </label
+                ><label class="option">
+                  <input type="radio" name="duration" value="На 1 месяц" />
+                  <span class="custom-radio"></span>
+                  На 1 месяц
+                </label>
+              </div>
+            </div>
+            <div class="navigation">
+              <button class="btn-prev">Назад</button>
+              <button class="btn-next">
+                Получить предложение
+              </button>
+            </div>
+          </div>
+
+          <!-- Результат -->
+          <div class="result" id="result">
+            <div class="result-summary">
+              <h2>
+                Данные для расчета <br />
+                приняты!
+              </h2>
+              <ul>
+                <li>
+                  Тип: <strong><span id="summaryType">-</span></strong>
+                </li>
+                <li>
+                  Сотрудники:
+                  <div class="employees-summary" id="employeesSummary">
+                    <!-- Здесь будут отображаться сотрудники со счетчиками -->
+                  </div>
+                </li>
+                <li>
+                  Продолжительность:
+                  <strong><span id="summaryDuration">-</span></strong>
+                </li>
+              </ul>
+            </div>
+
+            <div class="result-form">
+              <h3>Заполните форму и получите:</h3>
+              <ul class="benefits-list">
+                <li>Стоимость услуг</li>
+                <li>Сроки выхода на ваш объект</li>
+                <li>Примеры выполненных проектов</li>
+                <li>Варианты экономии и оптимизации</li>
+              </ul>
+
+              <form class="contact-form" id="contactForm">
+                <input type="hidden" name="formname" value="Квиз по аутсорсингу персонала">
+                
+                <div class="form-input-wrapper">
+                  <svg
+                    class="input-icon"
+                    width="15"
+                    height="12"
+                    viewBox="0 0 15 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12.75 0H1.41667C0.6375 0 0.00708333 0.6375 0.00708333 1.41667L0 9.91667C0 10.6958 0.6375 11.3333 1.41667 11.3333H12.75C13.5292 11.3333 14.1667 10.6958 14.1667 9.91667V1.41667C14.1667 0.6375 13.5292 0 12.75 0ZM12.4667 3.01042L7.45875 6.14125C7.23208 6.28292 6.93458 6.28292 6.70792 6.14125L1.7 3.01042C1.62897 2.97055 1.56678 2.91668 1.51717 2.85207C1.46757 2.78747 1.43159 2.71347 1.41141 2.63455C1.39123 2.55564 1.38727 2.47345 1.39978 2.39297C1.41228 2.31248 1.44099 2.23537 1.48416 2.1663C1.52733 2.09722 1.58406 2.03763 1.65093 1.99112C1.7178 1.94461 1.79341 1.91215 1.87318 1.89571C1.95296 1.87927 2.03524 1.87918 2.11505 1.89546C2.19486 1.91174 2.27054 1.94404 2.3375 1.99042L7.08333 4.95833L11.8292 1.99042C11.8961 1.94404 11.9718 1.91174 12.0516 1.89546C12.1314 1.87918 12.2137 1.87927 12.2935 1.89571C12.3733 1.91215 12.4489 1.94461 12.5157 1.99112C12.5826 2.03763 12.6393 2.09722 12.6825 2.1663C12.7257 2.23537 12.7544 2.31248 12.7669 2.39297C12.7794 2.47345 12.7754 2.55564 12.7553 2.63455C12.7351 2.71347 12.6991 2.78747 12.6495 2.85207C12.5999 2.91668 12.5377 2.97055 12.4667 3.01042Z"
+                      fill="#756161"
+                    />
+                  </svg>
+                  <input
+                    type="email"
+                    class="form-input"
+                    placeholder="Ваш E-mail"
+                    name="email"
+                    required
+                  />
+
+                  <span class="error-message" id="emailError">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9 6.75V9.5625M15.75 9C15.75 12.7279 12.7279 15.75 9 15.75C5.27208 15.75 2.25 12.7279 2.25 9C2.25 5.27208 5.27208 2.25 9 2.25C12.7279 2.25 15.75 5.27208 15.75 9ZM9 11.8125H9.00563V11.8181H9V11.8125Z"
+                        stroke="#E11D48"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                    Укажите email
+                  </span>
+                </div>
+
+                <div class="form-input-wrapper">
+                  <svg
+                    class="input-icon"
+                    width="14"
+                    height="15"
+                    viewBox="0 0 14 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.2157 14.6637C10.6057 14.6637 9.74881 14.4326 8.46568 13.6818C6.90537 12.7653 5.69849 11.9191 4.14662 10.2979C2.65037 8.73167 1.92224 7.71763 0.903181 5.7753C-0.248069 3.58224 -0.0518188 2.43268 0.167556 1.94137C0.428806 1.35416 0.814431 1.00294 1.31287 0.654341C1.59598 0.460054 1.89558 0.293506 2.20787 0.156811C2.23912 0.142736 2.26818 0.129316 2.29412 0.117205C2.44881 0.0442121 2.68318 -0.0660954 2.98006 0.0517405C3.17818 0.129643 3.35506 0.289049 3.63193 0.575456C4.19974 1.16202 4.97568 2.46836 5.26193 3.10991C5.45412 3.5423 5.58131 3.82773 5.58162 4.14785C5.58162 4.52263 5.40162 4.81166 5.18318 5.1236C5.14224 5.18219 5.10162 5.23816 5.06224 5.2925C4.82443 5.61982 4.77224 5.71441 4.80662 5.88331C4.87631 6.22274 5.39599 7.23319 6.25006 8.1258C7.10412 9.0184 8.04099 9.52837 8.36631 9.60104C8.53443 9.63868 8.62662 9.58172 8.94912 9.32379C8.99537 9.28681 9.04287 9.24851 9.09256 9.21021C9.42568 8.95065 9.68881 8.76702 10.0382 8.76702H10.0401C10.3441 8.76702 10.6044 8.90515 11.0357 9.13297C11.5982 9.43017 12.8829 10.2324 13.4463 10.8278C13.7204 11.1172 13.8732 11.3018 13.9479 11.509C14.0604 11.8209 13.9544 12.0654 13.8854 12.2291C13.8738 12.2563 13.861 12.2861 13.8476 12.3191C13.716 12.6456 13.5561 12.9588 13.3697 13.2546C13.0376 13.775 12.701 14.178 12.1391 14.452C11.8506 14.5949 11.5348 14.6673 11.2157 14.6637Z"
+                      fill="#756161"
+                    />
+                  </svg>
+                  <input
+                    type="tel"
+                    class="form-input"
+                    placeholder="Номер телефона"
+                    name="phone"
+                    required
+                  />
+
+                  <span class="error-message" id="phoneError">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9 6.75V9.5625M15.75 9C15.75 12.7279 12.7279 15.75 9 15.75C5.27208 15.75 2.25 12.7279 2.25 9C2.25 5.27208 5.27208 2.25 9 2.25C12.7279 2.25 15.75 5.27208 15.75 9ZM9 11.8125H9.00563V11.8181H9V11.8125Z"
+                        stroke="#E11D48"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                    Укажите телефон
+                  </span>
+                </div>
+
+                <button type="submit" class="btn-submit btn-next">
+                  Получить предложение
+                </button>
+                <label class="checkbox-label" id="checkboxLabel">
+                  <input type="checkbox" name="agreement" required />
+                  <span class="custom-checkbox"></span>
+                  Согласен с
+                  <a href="/privacy-policy.html" class="privacy-link" target="_blank">
+                    политикой конфиденциальности</a
+                  >
+                  <div class="error-message" id="checkboxError">
+                  Необходимо ваше согласие
+                </div>
+                </label>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/js/script.js" defer></script>
+  </body>
+</html>
