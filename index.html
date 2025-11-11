@@ -3,34 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- OpenGraph разметка -->
-    <meta property="og:title" content="Квиз по аутсорсингу персонала"/>
-    <meta property="og:description" content="Рассчитаем стоимость аутсорсинга персонала и составим коммерческое предложение"/>
-    <meta property="og:image" content="./img/og-image.jpg">
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content= "https://example.com/quiz" />
-    
-    <!-- Фавиконы -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-    
-    <!-- Подключение стилей -->
-     <link rel="stylesheet" href="./css/fonts.css">
-    <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="stylesheet" href="./css/critical.css">
-    <link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="./css/style.css"></noscript>
 
-    <link rel="stylesheet" href="./css/media.css">
-    
+    <link rel="stylesheet" href="./css/fonts.css" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/critical.css" />
+    <link
+      rel="preload"
+      href="./css/style.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="./css/style.css" /></noscript>
+
+    <link rel="stylesheet" href="./css/media.css" />
+
     <title>Квиз по аутсорсингу персонала</title>
-  
   </head>
   <body>
     <section class="block_quiz">
@@ -50,7 +37,11 @@
           </div>
 
           <div class="img-right">
-            <img src="./img/blocknot.png" alt="Блокнот для заметок" loading="lazy"/>
+            <img
+              src="./img/blocknot.png"
+              alt="Блокнот для заметок"
+              loading="lazy"
+            />
           </div>
 
           <!-- Вопрос 1 -->
@@ -179,9 +170,7 @@
             </div>
             <div class="navigation">
               <button class="btn-prev">Назад</button>
-              <button class="btn-next">
-                Получить предложение
-              </button>
+              <button class="btn-next">Получить предложение</button>
             </div>
           </div>
 
@@ -219,8 +208,12 @@
               </ul>
 
               <form class="contact-form" id="contactForm">
-                <input type="hidden" name="formname" value="Квиз по аутсорсингу персонала">
-                
+                <input
+                  type="hidden"
+                  name="formname"
+                  value="Квиз по аутсорсингу персонала"
+                />
+
                 <div class="form-input-wrapper">
                   <svg
                     class="input-icon"
@@ -310,20 +303,47 @@
                   <input type="checkbox" name="agreement" required />
                   <span class="custom-checkbox"></span>
                   Согласен с
-                  <a href="/privacy-policy.html" class="privacy-link" target="_blank">
+                  <a
+                    href="/privacy-policy.html"
+                    class="privacy-link"
+                    target="_blank"
+                  >
                     политикой конфиденциальности</a
                   >
                   <div class="error-message" id="checkboxError">
-                  Необходимо ваше согласие
-                </div>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9 6.75V9.5625M15.75 9C15.75 12.7279 12.7279 15.75 9 15.75C5.27208 15.75 2.25 12.7279 2.25 9C2.25 5.27208 5.27208 2.25 9 2.25C12.7279 2.25 15.75 5.27208 15.75 9ZM9 11.8125H9.00563V11.8181H9V11.8125Z"
+                        stroke="#E11D48"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                    Необходимо ваше согласие
+                  </div>
+                  
                 </label>
-                
               </form>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Попап спасибо -->
+    <div id="thankYouPopup" class="popup-overlay">
+      <div class="popup-window">
+        <h3>Спасибо за вашу заявку!</h3>
+        <p>Мы свяжемся с вами в ближайшее время.</p>
+        <button id="closePopup" class="popup-close">Хорошо</button>
+      </div>
+    </div>
 
     <script src="./js/script.js" defer></script>
   </body>

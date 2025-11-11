@@ -12,7 +12,7 @@ function showError(elementId) {
   if (errorElement) {
     errorElement.style.display = "flex";
     if (elementId === "checkboxError") {
-      errorElement.style.display = "block";
+      errorElement.style.display = "flex";
     }
   }
 }
@@ -32,14 +32,14 @@ function hideAllErrors() {
 }
 
 // Функция для вывода данных в консоль (ТОЛЬКО ДЛЯ ФИНАЛЬНОГО ВЫВОДА)
-function logQuizData() {
-  console.log("📊 Данные квиза:", {
-    employmentType: quizData.employmentType,
-    specialties: quizData.specialties,
-    employeeCount: quizData.employeeCount,
-    duration: quizData.duration,
-  });
-}
+// function logQuizData() {
+//   console.log("📊 Данные квиза:", {
+//     employmentType: quizData.employmentType,
+//     specialties: quizData.specialties,
+//     employeeCount: quizData.employeeCount,
+//     duration: quizData.duration,
+//   });
+// }
 
 // Инициализация при загрузке страницы
 document.addEventListener("DOMContentLoaded", function () {
@@ -57,6 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Инициализация состояния кнопок
   updateNextButtonState(1);
+
+  document.getElementById("closePopup").addEventListener("click", () => {
+  document.getElementById("thankYouPopup").style.display = "none";
+});
+
 });
 
 // Функция для инициализации кнопок навигации
@@ -144,33 +149,35 @@ function initRadioButtons() {
   );
   const durationRadios = document.querySelectorAll('input[name="duration"]');
 
-  // Для типа трудоустройства
+  // Тип трудоустройства (вопрос 1)
   employmentRadios.forEach((radio) => {
     radio.addEventListener("change", function () {
-      employmentRadios.forEach((r) => {
-        r.closest(".option").classList.remove("selected");
-      });
-      if (this.checked) {
-        this.closest(".option").classList.add("selected");
-        quizData.employmentType = this.value;
-      }
-      // Обновляем состояние кнопки после выбора
+      employmentRadios.forEach((r) =>
+        r.closest(".option").classList.remove("selected")
+      );
+      this.closest(".option").classList.add("selected");
+      quizData.employmentType = this.value;
+
       updateNextButtonState(1);
+
+      // ✅ Автопереход
+      nextQuestion(1);
     });
   });
 
-  // Для продолжительности
+  // Срок (вопрос 4)
   durationRadios.forEach((radio) => {
     radio.addEventListener("change", function () {
-      durationRadios.forEach((r) => {
-        r.closest(".option").classList.remove("selected");
-      });
-      if (this.checked) {
-        this.closest(".option").classList.add("selected");
-        quizData.duration = this.value;
-      }
-      // Обновляем состояние кнопки после выбора
+      durationRadios.forEach((r) =>
+        r.closest(".option").classList.remove("selected")
+      );
+      this.closest(".option").classList.add("selected");
+      quizData.duration = this.value;
+
       updateNextButtonState(4);
+
+      // ✅ Автопереход к результату
+      nextQuestion(4);
     });
   });
 }
@@ -563,26 +570,24 @@ function updateProgressBar(currentQuestion) {
 
 // Функция для применения маски к телефону
 function applyPhoneMask(input) {
-  input.addEventListener("input", function (e) {
-    let x = e.target.value
-      .replace(/\D/g, "")
-      .match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+  input.addEventListener("input", function () {
+    let digits = this.value.replace(/\D/g, "");
 
-    if (x[1] === "8" || x[1] === "7") {
-      x[1] = "+7";
-    } else if (x[1] === "") {
-      x[1] = "+7";
+    if (digits.startsWith("8") || digits.startsWith("7")) {
+      digits = digits.slice(1);
     }
 
-    e.target.value = !x[3]
-      ? x[1] + x[2]
-      : x[1] +
-        " (" +
-        x[2] +
-        ") " +
-        x[3] +
-        (x[4] ? "-" + x[4] : "") +
-        (x[5] ? "-" + x[5] : "");
+    digits = "+7" + digits;
+
+    this.value = digits.replace(
+      /(\+7)(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2}).*/,
+      (_, a, b, c, d, e) =>
+        a +
+        (b ? ` (${b}` : "") +
+        (c ? `) ${c}` : "") +
+        (d ? `-${d}` : "") +
+        (e ? `-${e}` : "")
+    );
   });
 }
 
@@ -628,7 +633,7 @@ function showResult() {
 
   // ВЫВОД ДАННЫХ ТОЛЬКО ЗДЕСЬ - ОДИН РАЗ В КОНЦЕ
   //   console.log("🎉 ФИНАЛЬНЫЕ ДАННЫЯ КВИЗА:");
-  logQuizData();
+  // logQuizData();
 
   // Убираем required атрибуты чтобы избежать браузерной валидации
   const requiredInputs = document.querySelectorAll(
@@ -644,6 +649,8 @@ function showResult() {
     this.value = this.value.replace(/[^\d+()-]/g, "");
     document.getElementById("phoneError").style.display = "none";
   });
+
+  applyPhoneMask(phoneInput);
 
   // Скрываем ошибку email при вводе
   const emailInput = document.querySelector('input[type="email"]');
@@ -662,47 +669,52 @@ function showResult() {
     .getElementById("contactForm")
     .addEventListener("submit", function (e) {
       e.preventDefault();
+      hideAllErrors();
 
-      const errorMessages = document.querySelectorAll(".error-message");
-      errorMessages.forEach((error) => {
-        error.style.display = "none";
-      });
+      const email = this.email.value.trim();
+      const phone = this.phone.value.trim();
+      const agree = this.agreement.checked;
 
-      let isValid = true;
+      let valid = true;
 
-      // Проверка email
-      const emailInput = document.querySelector('input[type="email"]');
-      const emailError = document.getElementById("emailError");
-      if (!emailInput.value.trim()) {
-        emailError.style.display = "flex";
-        isValid = false;
+      if (!email || !email.includes("@")) {
+        showError("emailError");
+        valid = false;
       }
 
-      // Проверка телефона
-      const phoneInput = document.querySelector('input[type="tel"]');
-      const phoneError = document.getElementById("phoneError");
-      if (!phoneInput.value.trim()) {
-        phoneError.style.display = "flex";
-        isValid = false;
+      if (phone.replace(/\D/g, "").length < 11) {
+        showError("phoneError");
+        valid = false;
       }
 
-      // Проверка чекбокса
-      const checkbox = document.querySelector('input[type="checkbox"]');
-      const checkboxError = document.getElementById("checkboxError");
-      if (!checkbox.checked) {
-        checkboxError.style.display = "block";
-        isValid = false;
+      if (!agree) {
+        showError("checkboxError");
+        valid = false;
       }
 
-      if (isValid) {
-        const resultForm = document.querySelector(".result-form");
-        resultForm.innerHTML = `
-        <div class="thank-you-message">
-          <h3>Спасибо за вашу заявку!</h3>
-          <p>Мы свяжемся с вами в ближайшее время для уточнения деталей.</p>
-        </div>
-      `;
-      }
+      if (!valid) return;
+
+      const btn = this.querySelector(".btn-submit");
+      btn.disabled = true;
+      btn.classList.add("disabled");
+      // btn.textContent = "Отправка...";
+
+      const formData = new FormData(this);
+      const finalData = {
+        ...quizData,
+        form: Object.fromEntries(formData),
+      };
+
+      console.log("Форма отправлена:", finalData);
+
+      // 🔥 Показ окна "спасибо"
+  //     this.innerHTML = `
+  //   <div class="thank-you-message">
+  //     <h3>Спасибо за вашу заявку!</h3>
+  //     <p>Мы свяжемся с вами в ближайшее время.</p>
+  //   </div>
+  // `;
+  document.getElementById("thankYouPopup").style.display = "flex";
     });
 }
 
@@ -803,3 +815,4 @@ function renderEmployeesSummary() {
     });
   });
 }
+

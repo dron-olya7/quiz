@@ -1123,19 +1123,75 @@
   display: block;
 }
 
-.thank-you-message {
-  text-align: center;
-  padding: 40px 20px;
+.btn-submit.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
-.thank-you-message h3 {
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.65);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-window {
+  background: #fff;
+  padding: 28px 32px;
+  border-radius: 14px;
+  text-align: center;
+  max-width: 450px;
+  animation: popupFade .35s ease;
+}
+
+.popup-window h3 {
   font-family: "Raleway-Bold";
   font-size: 28px;
   color: #433030;
-  margin-bottom: 20px;
 }
-.thank-you-message p {
+
+.popup-window p {
   font-family: "Raleway-Regular";
   font-size: 18px;
   color: #433030;
-  margin-bottom: 30px;
+}
+
+@keyframes popupFade {
+  from { transform: scale(.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.popup-close {
+  margin-top: 18px;
+  padding: 12px 26px;
+    border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+  color: #ffffff;
+  border: none;
+   background: linear-gradient(
+    231.14deg,
+    #f42b34 10.83%,
+    #ff000b 39.67%,
+    #e20812 60.86%
+  );
+  transition: .5s;
+}
+
+.popup-close:hover {
+  background: linear-gradient(
+    231.14deg,
+    #c5141b 10.83%,
+    #cd0808 39.67%,
+    #c11119 60.86%
+  );
 }
